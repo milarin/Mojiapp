@@ -22,10 +22,6 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
-          <!-- {{ Form::open(['method' => 'get']) }}
-            {{ Form::text('keyword', null, ['class' => 'form-control me-2']) }}
-            {{ Form::submit('Search', ['class' => 'btn btn-outline-success'])}}
-          {{ Form::close() }} -->
         </ul>
       </div>
     </div>
@@ -52,6 +48,12 @@
         
     </div>
     @endforeach
+    
+    <div class="gallery-item" tabindex="0">
+  
+      <div class="gallery-image gallery-item-none"></div>
+  
+    </div>
     
     <div class="gallery-item" tabindex="0">
   
