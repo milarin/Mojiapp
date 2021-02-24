@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-
 @section('nav')
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,34 +27,35 @@
 
 @endsection
 
-
 @section('content')
 
 <main>
 
-<div class="container">
+    <div class="container">
 
-  <div class="gallery">
+      <div class="gallery  detail-gallery">
 
-    @foreach($characters as $character)
-    <div class="gallery-item" tabindex="0">
-
-      <a href="{{ route('chara.detail', ['id' =>  $character->id]) }}">
-        <img src="{{ $character->image_file }}" class="gallery-image" alt="">
-      </a>
+        <div class="gallery-item gallery-item-none" tabindex="0">
+          
+          <img src="{{ $character->image_file }}" class="gallery-image detail-image" alt="">
+          
+        </div>
         
-    </div>
-    @endforeach
-    
-    <div class="gallery-item" tabindex="0">
-  
-      <div class="gallery-image gallery-item-none"></div>
-  
-    </div>
-  </div><!-- gallery -->
-  
-</div><!-- .container -->
+      </div><!-- .gallery .detail-gallary-->
+      
+      <div class="container detail-gallery-item">
+        <p>{{ $character->title }}</p>
+      </div>
+      <div class="container detail-gallery-item">
+        <a href="#">編集</a><span> /</span>
+        <a href="#">削除</a>
+      </div>
+      <div class="container detail-gallery-item">
+        <a href="{{ route('chara.list') }}">一覧へ戻る</a>
+      </div>
 
-</main>
+    </div><!-- .container-->
+      
+  </main>
 
 @endsection

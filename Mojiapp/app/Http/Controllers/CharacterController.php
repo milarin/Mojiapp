@@ -45,9 +45,10 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function show(Character $character)
+    public function show($id)
     {
-        //
+        $character = Character::find($id);
+        return view('show', ['character' => $character]);
     }
 
     /**
