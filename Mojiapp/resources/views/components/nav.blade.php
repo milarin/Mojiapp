@@ -1,8 +1,3 @@
-@extends('layouts.layout')
-
-
-@section('nav')
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,37 +20,3 @@
       </div>
     </div>
   </nav>
-
-@endsection
-
-
-@section('content')
-
-<main>
-
-<div class="container">
-
-  <div class="gallery">
-
-    @foreach($characters as $character)
-    <div class="gallery-item" tabindex="0">
-
-      <a href="/">
-        <img src="{{ $character->image_file }}" class="gallery-image" alt="">
-      </a>
-        
-    </div>
-    @endforeach
-    
-    <div class="gallery-item" tabindex="0">
-  
-      <div class="gallery-image gallery-item-none"></div>
-  
-    </div>
-  </div><!-- gallery -->
-  
-</div><!-- .container -->
-
-</main>
-
-@endsection
