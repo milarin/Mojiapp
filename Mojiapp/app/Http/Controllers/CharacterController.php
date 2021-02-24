@@ -13,10 +13,17 @@ class CharacterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $characters = Character::all();
-        return view('index', ['characters' => $characters]);
+        if($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $message = '検索結果：' . $keyword;
+            $characters = Character::where('title', 'LIKE', "%{$keyword}%")->get();
+        } else {
+            $message = '';
+            $characters = Character::all();
+        }
+        return view('index', ['characters' => $characters, 'message' => $message, 'keyword' => $request->input]);
     }
 
     /**
