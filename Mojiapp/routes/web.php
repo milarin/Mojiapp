@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/characters', 'CharacterController@index')->name('chara.list');
 Route::get('/character/new', 'CharacterController@create')->name('chara.new');
 Route::post('/character', 'CharacterController@store')->name('chara.store');
+Route::get('/character/edit/{id}', 'CharacterController@edit')->name('chara.edit');
+Route::post('/character/update/{id}', 'CharacterController@update')->name('chara.update');
 
 Route::get('/character/{id}', 'CharacterController@show')->name('chara.detail');
 

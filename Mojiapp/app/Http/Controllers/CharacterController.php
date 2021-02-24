@@ -64,9 +64,10 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function edit(Character $character)
+    public function edit($id)
     {
-        //
+        $character = Character::find($id);
+        return view('edit', ['character' => $character]);
     }
 
     /**
@@ -76,9 +77,14 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Character $character)
+    public function update(Request $request, $id, Character $character)
     {
-        //
+        $character = Character::find($id);
+        $character->title = request('title');
+        $character->image_file = request('image_file');
+        $character->category_id = 1;
+        $character->save();
+        return redirect()->route('chara.detail', ['id' => $character->id]);
     }
 
     /**

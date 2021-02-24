@@ -31,31 +31,28 @@
 
 <main>
 
-    <div class="container">
+    <div class="container create">
 
-      <div class="gallery  detail-gallery">
+      <h1>{{ $character->title }}の編集</h1>
+      {{ Form::model($character, ['route' => ['chara.update', $character->id]]) }}
+          <div class='form-group'>
+              {{ Form::label('title', 'タイトル:') }}
+              {{ Form::text('title', null) }}
+          </div>
+          <div class='form-group'>
+              {{ Form::label('image_file', 'ファイル:') }}
+              {{ Form::text('image_file', null) }}
+          </div>
+          <div class="form-group">
+              {{ Form::submit('更新する', ['class' => 'button']) }}
+          </div>
+      {{ Form::close() }}
 
-        <div class="gallery-item gallery-item-none" tabindex="0">
-          
-          <img src="{{ $character->image_file }}" class="gallery-image detail-image" alt="">
-          
-        </div>
-        
-      </div><!-- .gallery .detail-gallary-->
-      
-      <div class="container detail-gallery-item">
-        <p>{{ $character->title }}</p>
+      <div>
+          <a href="{{ route('chara.list') }}">一覧に戻る</a>
       </div>
-      <div class="container detail-gallery-item">
-        <a href="{{ route('chara.edit', ['id' => $character->id]) }}">編集</a><span> /</span>
-        <a href="#">削除</a>
-      </div>
-      <div class="container detail-gallery-item">
-        <a href="{{ route('chara.list') }}">一覧へ戻る</a>
-      </div>
-
     </div><!-- .container-->
       
-  </main>
+</main>
 
 @endsection
