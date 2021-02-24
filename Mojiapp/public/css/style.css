@@ -79,6 +79,10 @@ img {
   opacity: 1;
 }
 
+.create {
+  font-size: 15px;
+}
+
 @supports (display: grid) {
   .gallery {
     display: -ms-grid;

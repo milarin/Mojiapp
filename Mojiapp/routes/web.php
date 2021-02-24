@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/characters', 'CharacterController@index')->name('chara.list');
-Route::get('/chara/{id}', 'CharacterController@show')->name('chara.detail');
+Route::get('/character/new', 'CharacterController@create')->name('chara.new');
+Route::post('/character', 'CharacterController@store')->name('chara.store');
+
+Route::get('/character/{id}', 'CharacterController@show')->name('chara.detail');
 
 Route::get('/', function () {
     return redirect('/characters');

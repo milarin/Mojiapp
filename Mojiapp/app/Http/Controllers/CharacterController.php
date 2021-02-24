@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
@@ -25,7 +26,8 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        //
+        $character = new Character;
+        return view('new');
     }
 
     /**
