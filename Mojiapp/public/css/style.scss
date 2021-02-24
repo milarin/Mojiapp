@@ -77,6 +77,34 @@ img {
   font-size: 15px;
 }
 
+label {
+  margin-bottom: 10px;
+  display: block;
+  font-size: 20px;
+}
+
+input[type="text"] {
+  background: rgba(255, 255, 255, .5);
+  border: 1px rgb(136, 136, 136) solid;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.button {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid rgb(15, 88, 172);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 40rem) {
+  input[type="text"] {
+    max-width: 100%;
+    padding: 5px;
+  }
+}
+
 
 @supports (display: grid) {
   .gallery {

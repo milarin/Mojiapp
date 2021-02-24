@@ -44,7 +44,7 @@
               {{ Form::text('image_file', null) }}
           </div>
           <div class="form-group">
-              {{ Form::submit('作成する', ['class' => 'btn btn-outline-primary']) }}
+              {{ Form::submit('作成する', ['class' => 'button']) }}
           </div>
       {{ Form::close() }}
 
