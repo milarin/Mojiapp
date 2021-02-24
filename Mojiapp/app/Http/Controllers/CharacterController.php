@@ -38,7 +38,12 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $character = new Character;
+        $character->title = request('title');
+        $character->image_file = request('image_file');
+        $character->category_id = 1;
+        $character->save();
+        return redirect()->route('chara.detail', ['id' => $character->id]);
     }
 
     /**
