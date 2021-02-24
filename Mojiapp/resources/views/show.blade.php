@@ -47,8 +47,10 @@
         <p>{{ $character->title }}</p>
       </div>
       <div class="container detail-gallery-item">
-        <a href="{{ route('chara.edit', ['id' => $character->id]) }}">編集</a><span> /</span>
-        <a href="#">削除</a>
+        <a href="{{ route('chara.edit', ['id' => $character->id]) }}" class='button'>編集</a>
+        {{ Form::open(['method' => 'delete', 'route' => ['chara.destroy',  $character->id ]]) }}
+          {{ Form::submit('削除', ['class' => 'button']) }}
+        {{ Form::close() }}
       </div>
       <div class="container detail-gallery-item">
         <a href="{{ route('chara.list') }}">一覧へ戻る</a>

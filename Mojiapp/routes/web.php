@@ -20,6 +20,7 @@ Route::get('/character/edit/{id}', 'CharacterController@edit')->name('chara.edit
 Route::post('/character/update/{id}', 'CharacterController@update')->name('chara.update');
 
 Route::get('/character/{id}', 'CharacterController@show')->name('chara.detail');
+Route::delete('/character/{id}', 'CharacterController@destroy')->name('chara.destroy');
 
 Route::get('/', function () {
     return redirect('/characters');
