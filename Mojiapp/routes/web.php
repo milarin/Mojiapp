@@ -25,3 +25,7 @@ Route::delete('/character/{id}', 'CharacterController@destroy')->name('chara.des
 Route::get('/', function () {
     return redirect('/characters');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
