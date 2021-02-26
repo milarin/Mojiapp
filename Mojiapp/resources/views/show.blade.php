@@ -7,6 +7,7 @@
 
     <div class="container">
 
+    
       <div class="gallery  detail-gallery">
 
         <div class="gallery-item gallery-item-none" tabindex="0">

@@ -16,21 +16,26 @@
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
   <script src='{{ asset("js/app.js") }}' defer></script>
-
+  
 </head>
 <body>
   
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="/">Moji App</a>
+      <form class="d-flex">
+        @csrf
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- Authentication Links -->
           @guest
-              @if (Route::has('login'))
+          @if (Route::has('login'))
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                   </li>
@@ -60,11 +65,6 @@
                   </div>
               </li>
           @endguest
-          <form class="d-flex">
-            @csrf
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </ul>
       </div>
     </div>
