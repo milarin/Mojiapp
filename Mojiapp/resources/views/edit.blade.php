@@ -8,19 +8,24 @@
     <div class="container create">
 
       <h1>{{ $character->title }}の編集</h1>
-      {{ Form::model($character, ['route' => ['chara.update', $character->id]]) }}
+      {{ Form::model($character, ['route' => ['chara.update', $character->id], 'files' => true]) }}
           <div class='form-group'>
               {{ Form::label('title', 'タイトル:') }}
               {{ Form::text('title', null) }}
           </div>
           <div class='form-group'>
               {{ Form::label('image_file', 'ファイル:') }}
-              {{ Form::text('image_file', null) }}
+              {{ Form::file('image_file', null) }}
+          </div>
+          <div>
+            <p>現在の画像</p>
+            <img src="{{ asset('storage/' . $character->image_file) }}" alt="image" style="width: 30%; height: auto;"/>
           </div>
           <div class="form-group">
               {{ Form::submit('更新する', ['class' => 'button']) }}
           </div>
       {{ Form::close() }}
+
 
       <div>
           <a href="{{ route('chara.list') }}">一覧に戻る</a>

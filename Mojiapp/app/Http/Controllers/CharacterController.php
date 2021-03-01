@@ -94,8 +94,11 @@ class CharacterController extends Controller
     public function update(Request $request, $id, Character $character)
     {
         $character = Character::find($id);
+        $user = Auth::user();
         $character->title = request('title');
-        $character->image_file = request('image_file');
+        $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
+        $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
+        $character->user_id = $user->id;
         $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);
