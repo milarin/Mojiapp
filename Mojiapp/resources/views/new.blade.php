@@ -8,6 +8,14 @@
     <div class="container create">
 
       <h1>新規投稿</h1>
+        @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endif
+
       {{ Form::open(['route' => 'chara.store', 'files' => true]) }}
           <div class='form-group'>
               {{ Form::label('title', 'タイトル:') }}

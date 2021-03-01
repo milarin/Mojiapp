@@ -8,6 +8,13 @@
     <div class="container create">
 
       <h1>{{ $character->title }}の編集</h1>
+      @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endif
       {{ Form::model($character, ['route' => ['chara.update', $character->id], 'files' => true]) }}
           <div class='form-group'>
               {{ Form::label('title', 'タイトル:') }}

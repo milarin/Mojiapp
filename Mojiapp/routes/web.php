@@ -23,6 +23,8 @@ Route::get('/character/{id}', 'CharacterController@show')->name('chara.detail');
 Route::delete('/character/{id}', 'CharacterController@destroy')->name('chara.destroy');
 
 Route::get('/profile/{id}', 'UserController@index')->name('user.detail');
+Route::get('/profile/edit/{id}', 'UserController@edit')->name('user.edit');
+Route::get('/profile/update/{id}', 'UserController@update')->name('user.update');
 
 Route::get('/', function () {
     return redirect('/characters');

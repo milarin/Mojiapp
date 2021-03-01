@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -47,13 +48,16 @@ class CharacterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CharacterRequest $request)
     {
         $user = Auth::user();
         $character = new Character;
         $character->title = request('title');
-        $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
-        $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
+        $uploadImg = $request->file('image_file');
+        if($uploadImg->isValid()) {
+            $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
+            $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
+        }
         $character->user_id = $user->id;
         $character->category_id = 1;
         $character->save();
@@ -91,7 +95,7 @@ class CharacterController extends Controller
      * @param  \App\Models\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Character $character)
+    public function update(CharacterRequest $request, $id, Character $character)
     {
         $character = Character::find($id);
         $user = Auth::user();
