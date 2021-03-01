@@ -83,12 +83,17 @@ label {
   font-size: 20px;
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
   background: rgba(255, 255, 255, .5);
   border: 1px rgb(136, 136, 136) solid;
   border-radius: 3px;
   width: 100%;
   max-width: 300px;
+}
+
+textarea {
+  max-width: 600px;
 }
 
 .button {

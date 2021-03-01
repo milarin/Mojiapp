@@ -19,14 +19,14 @@
       
       <h1 class="profile-user-name">{{ $user->name }}</h1>
       
-      <button class="prof-btn profile-edit-btn">Edit Profile</button>
+      <a href="{{ route('user.edit', ['id' =>  Auth::user()->id]) }}" class="prof-btn profile-edit-btn">Edit Profile</a>
 
     </div>
 
 
     <div class="profile-bio">
 
-      <p><span class="profile-real-name">test</span> テストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージテストメッセージ</p>
+      <p> {{ $user->content }}</p>
 
     </div>
 
