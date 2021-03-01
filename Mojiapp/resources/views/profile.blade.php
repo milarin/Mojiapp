@@ -70,7 +70,7 @@
 
 </main>
 
-<a href="">
+<a href="{{ route('chara.new') }}">
 <div class="icon icon--plus">
     <span class="icon_mark"></span>
 </div>

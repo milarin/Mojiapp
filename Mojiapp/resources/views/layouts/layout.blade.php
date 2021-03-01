@@ -64,6 +64,9 @@
                       </form>
                   </div>
               </li>
+              <li class="navbar-brand">
+              <a href="{{ route('user.detail', ['id' =>  Auth::user()->id]) }}">MyPage</a>
+              </li>
           @endguest
         </ul>
       </div>
