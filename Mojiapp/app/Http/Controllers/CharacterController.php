@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Character;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->except(['index', 'show']);
     }
     /**
      * Display a listing of the resource.
@@ -37,7 +38,6 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        $character = new Character;
         return view('new');
     }
 
@@ -49,9 +49,12 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         $character = new Character;
         $character->title = request('title');
-        $character->image_file = request('image_file');
+        $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
+        $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
+        $character->user_id = $user->id;
         $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);

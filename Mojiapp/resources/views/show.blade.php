@@ -12,7 +12,7 @@
 
         <div class="gallery-item gallery-item-none" tabindex="0">
           
-          <img src="{{ $character->image_file }}" class="gallery-image detail-image" alt="">
+          <img src="{{ asset('/storage/'.$character->image_file)}}" class="gallery-image detail-image" alt="">
           
         </div>
         
