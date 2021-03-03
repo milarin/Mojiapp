@@ -14,7 +14,7 @@ class CreateCharactersTable extends Migration
     public function up()
     {
         Schema::create('characters', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');;
             $table->string('title');
             $table->string('image_file');
             $table->integer('category_id');

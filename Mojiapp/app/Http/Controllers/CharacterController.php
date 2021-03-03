@@ -6,6 +6,7 @@ use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class CharacterController extends Controller
@@ -50,15 +51,12 @@ class CharacterController extends Controller
      */
     public function store(CharacterRequest $request)
     {
-        $user = Auth::user();
         $character = new Character;
         $character->title = request('title');
-        $uploadImg = $request->file('image_file');
-        if($uploadImg->isValid()) {
-            $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
-            $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
-        }
-        $character->user_id = $user->id;
+        $uploadImg = $character->image_file = $request->file('image_file');
+        $path = Storage::disk('s3')->putFile('/', $uploadImg, 'public');
+        $character->image_file = Storage::disk('s3')->url($path);
+        $character->user_id = 1;
         $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);
@@ -100,9 +98,10 @@ class CharacterController extends Controller
         $character = Character::find($id);
         $user = Auth::user();
         $character->title = request('title');
-        $filename = $request->file('image_file')->store('public'); // publicフォルダに保存
-        $character->image_file = str_replace('public/','',$filename); // 保存するファイル名からpublicを除外
-        $character->user_id = $user->id;
+        $uploadImg = $character->image_file = $request->file('image_file');
+        $path = Storage::disk('s3')->putFile('/character', $uploadImg, 'public');
+        $character->image_file = Storage::disk('s3')->url($path);
+        $character->user_id = 1;
         $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);
@@ -117,6 +116,9 @@ class CharacterController extends Controller
     public function destroy($id)
     {
         $character = Character::find($id);
+        // $deleteimage = $character->image_file;
+        // $delete_path = storage_path().'app/public/'.$deleteimage;
+        // \File::delete($delete_path);
         $character->delete();
         return redirect('/characters');
     }

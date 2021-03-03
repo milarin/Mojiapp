@@ -22,7 +22,7 @@
           </div>
           <div class='form-group'>
               {{ Form::label('image_file', 'ファイル:') }}
-              {{ Form::file('image_file', null) }}
+              {{ Form::file('image_file', old('image_file')) }}
           </div>
           <div>
             <p>現在の画像</p>
