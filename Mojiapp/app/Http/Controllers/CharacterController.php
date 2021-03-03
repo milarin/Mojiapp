@@ -54,7 +54,7 @@ class CharacterController extends Controller
         $character = new Character;
         $character->title = request('title');
         $uploadImg = $character->image_file = $request->file('image_file');
-        $path = Storage::disk('s3')->putFile('/', $uploadImg, 'public');
+        $path = Storage::disk('s3')->putFile('/character', $uploadImg, 'public');
         $character->image_file = Storage::disk('s3')->url($path);
         $character->user_id = 1;
         $character->category_id = 1;
