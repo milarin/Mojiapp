@@ -47,9 +47,9 @@
     
     @foreach ($character as $chara)
     <div class="gallery-item" tabindex="0">
-
+      <a href="/character/{{ $chara->id }}">
         <img src="{{ $chara->image_file }}" class="gallery-image" alt="">
-        
+      </a>
     </div>
     @endforeach
    

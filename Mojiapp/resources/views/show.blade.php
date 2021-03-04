@@ -7,7 +7,9 @@
 
     <div class="container">
 
-    
+      <div class="container show-user-name">
+        <a href="/profile/{{ $character->user_id }}">{{ $character->user->name }}</a>
+      </div>
       <div class="gallery  detail-gallery">
 
         <div class="gallery-item gallery-item-none" tabindex="0">
