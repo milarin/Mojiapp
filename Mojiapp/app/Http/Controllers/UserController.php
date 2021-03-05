@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Character;
 use App\Models\Category;
 use App\Models\User;
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('profile_edit',['user' => $user]);
     }
 
-    public function update(Request $request, $id, User $user)
+    public function update(UserRequest $request, $id, User $user)
     {
         $user = User::find($id);
         $user->name = request('name');
