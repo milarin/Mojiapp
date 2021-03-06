@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -34,8 +35,13 @@ class UserController extends Controller
         if (request('user_image'))
         {
             $uploadImg = $user->user_image = $request->file('user_image');
-            $path = Storage::disk('s3')->putFile('/user', $uploadImg, 'public');
-            $user->user_image = Storage::disk('s3')->url($path);
+            $extension = $request->file('user_image')->getClientOriginalExtension();
+            $filename = $request->file('user_image')->getClientOriginalName();
+            $resize_image = Image::make($uploadImg)->fit(250, 250,  function ($constraint) {
+                $constraint->upsize();
+            })->encode($extension);
+            $path = Storage::disk('s3')->put('/user/'.$filename, (string)$resize_image, 'public');
+            $user->user_image = Storage::disk('s3')->url('user/'.$filename);
         } 
         $user->save();
         return redirect()->route('user.detail', ['id' => $user->id]);
