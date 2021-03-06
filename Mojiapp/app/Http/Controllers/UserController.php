@@ -31,7 +31,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = request('name');
         $user->content = request('content');
-        if (request('user_image') != '')
+        if (request('user_image'))
         {
             $uploadImg = $user->user_image = $request->file('user_image');
             $path = Storage::disk('s3')->putFile('/user', $uploadImg, 'public');
