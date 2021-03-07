@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class CharacterController extends Controller
 {
@@ -25,10 +26,11 @@ class CharacterController extends Controller
         if($request->filled('keyword')) {
             $keyword = $request->input('keyword');
             $message = '検索結果：' . $keyword;
-            $characters = Character::where('title', 'LIKE', "%{$keyword}%")->get();
+            $characters = Character::where('title', 'LIKE', "%{$keyword}%")->simplePaginate(21);
         } else {
             $message = '';
-            $characters = Character::all();
+            // $characters = \DB::table('characters')->orderBy('id', 'desc')->simplePaginate(3);
+            $characters = Character::orderBy('id', 'desc')->simplePaginate(21);
         }
         return view('index', ['characters' => $characters, 'message' => $message, 'keyword' => $request->input]);
     }
@@ -53,9 +55,16 @@ class CharacterController extends Controller
     {
         $character = new Character;
         $character->title = request('title');
+        //image加工
         $uploadImg = $character->image_file = $request->file('image_file');
-        $path = Storage::disk('s3')->putFile('/character', $uploadImg, 'public');
-        $character->image_file = Storage::disk('s3')->url($path);
+        $extension = $request->file('image_file')->getClientOriginalExtension();
+        $filename = $request->file('image_file')->getClientOriginalName();
+        $resize_image = Image::make($uploadImg)->fit(500, 500,  function ($constraint) {
+            $constraint->upsize();
+        })->encode($extension);
+        $path = Storage::disk('s3')->put('/character/'.$filename, (string)$resize_image, 'public');
+        $character->image_file = Storage::disk('s3')->url('character/'.$filename);
+
         $character->user_id = 1;
         $character->category_id = 1;
         $character->save();
@@ -98,9 +107,16 @@ class CharacterController extends Controller
         $character = Character::find($id);
         $user = Auth::user();
         $character->title = request('title');
-        $uploadImg = $character->image_file = $request->file('image_file');
-        $path = Storage::disk('s3')->putFile('/character', $uploadImg, 'public');
-        $character->image_file = Storage::disk('s3')->url($path);
+        if (request('image_file')) {
+            $uploadImg = $character->image_file = $request->file('image_file');
+            $extension = $request->file('image_file')->getClientOriginalExtension();
+            $filename = $request->file('image_file')->getClientOriginalName();
+            $resize_image = Image::make($uploadImg)->fit(500, 500,  function ($constraint) {
+                $constraint->upsize();
+            })->encode($extension);
+            $path = Storage::disk('s3')->put('/character/'.$filename, (string)$resize_image, 'public');
+            $character->image_file = Storage::disk('s3')->url('character/'.$filename);
+        }
         $character->user_id = 1;
         $character->category_id = 1;
         $character->save();

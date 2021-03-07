@@ -34,6 +34,7 @@
   
     </div>
   </div><!-- gallery -->
+  {{ $characters->appends(Request::query())->links() }}
   
 </div><!-- .container -->
 

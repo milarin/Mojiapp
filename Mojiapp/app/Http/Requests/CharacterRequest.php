@@ -25,7 +25,7 @@ class CharacterRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'image_file' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image_file' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
