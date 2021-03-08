@@ -26,7 +26,7 @@ class CharacterController extends Controller
         if($request->filled('keyword')) {
             $keyword = $request->input('keyword');
             $message = '検索結果：' . $keyword;
-            $characters = Character::where('title', 'LIKE', "%{$keyword}%")->simplePaginate(21);
+            $characters = Character::where('title', 'LIKE', "%{$keyword}%")->orderBy('id', 'desc')->simplePaginate(21);
         } else {
             $message = '';
             // $characters = \DB::table('characters')->orderBy('id', 'desc')->simplePaginate(3);

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index($id)
     {
         $user = User::find($id);
-        $character = Character::where('user_id', $id)->select('image_file', 'id')->get();
+        $character = Character::where('user_id', $id)->select('image_file', 'id')->orderBy('id', 'desc')->get();
 
         return view('profile', ['user' => $user, 'character' => $character]);
     }
