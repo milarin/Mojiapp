@@ -16,9 +16,14 @@ class UserController extends Controller
     public function index($id)
     {
         $user = User::find($id);
+        if ($user) {
+            $login_user_id = $user->id;
+        } else {
+            $login_user_id = "";
+        }
         $character = Character::where('user_id', $id)->select('image_file', 'id')->orderBy('id', 'desc')->get();
 
-        return view('profile', ['user' => $user, 'character' => $character]);
+        return view('profile', ['user' => $user, 'character' => $character, 'login_user_id' => $login_user_id]);
     }
 
     public function edit($id)

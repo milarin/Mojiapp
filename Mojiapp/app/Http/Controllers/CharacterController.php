@@ -14,7 +14,7 @@ class CharacterController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
     /**
      * Display a listing of the resource.
@@ -54,6 +54,7 @@ class CharacterController extends Controller
     public function store(CharacterRequest $request)
     {
         $character = new Character;
+        $user = Auth::user();
         $character->title = request('title');
         //image加工
         $uploadImg = $character->image_file = $request->file('image_file');
@@ -65,7 +66,7 @@ class CharacterController extends Controller
         $path = Storage::disk('s3')->put('/character/'.$filename, (string)$resize_image, 'public');
         $character->image_file = Storage::disk('s3')->url('character/'.$filename);
 
-        $character->user_id = 1;
+        $character->user_id = $user->id;
         $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);
@@ -80,7 +81,13 @@ class CharacterController extends Controller
     public function show($id)
     {
         $character = Character::find($id);
-        return view('show', ['character' => $character]);
+        $user = Auth::user();
+        if ($user) {
+            $login_user_id = $user->id;
+        } else {
+            $login_user_id = "";
+        }
+        return view('show', ['character' => $character, 'login_user_id' => $login_user_id]);
     }
 
     /**
@@ -105,7 +112,6 @@ class CharacterController extends Controller
     public function update(CharacterRequest $request, $id, Character $character)
     {
         $character = Character::find($id);
-        $user = Auth::user();
         $character->title = request('title');
         if (request('image_file')) {
             $uploadImg = $character->image_file = $request->file('image_file');
@@ -117,8 +123,6 @@ class CharacterController extends Controller
             $path = Storage::disk('s3')->put('/character/'.$filename, (string)$resize_image, 'public');
             $character->image_file = Storage::disk('s3')->url('character/'.$filename);
         }
-        $character->user_id = 1;
-        $character->category_id = 1;
         $character->save();
         return redirect()->route('chara.detail', ['id' => $character->id]);
     }

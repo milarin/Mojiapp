@@ -27,8 +27,11 @@
     <div class="profile-user-settings">
       
       <h1 class="profile-user-name">{{ $user->name }}</h1>
-      
-      <a href="{{ route('user.edit', ['id' =>  Auth::user()->id]) }}" class="prof-btn profile-edit-btn">Edit Profile</a>
+      @auth
+        @if ($user->id === $login_user_id)
+      <a href="{{ route('user.edit', ['id' =>  $user->id]) }}" class="prof-btn profile-edit-btn">Edit Profile</a>
+        @endif
+      @endauth
 
     </div>
 
